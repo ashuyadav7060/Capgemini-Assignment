@@ -17,13 +17,13 @@ import com.cg.entity.Track;
 import com.cg.repo.TrackRepository;
 
 @RestController
-@RequestMapping("/tracks")
+
 public class TrackController {
  
 	@Autowired
 	private TrackRepository trackRepository;
 	
-	 @PostMapping
+	 @PostMapping("/tracks")
 	public ResponseEntity<String> addTrack(@RequestBody Track track){
 		trackRepository.save(track);
 		return ResponseEntity.ok("track added successfully");
@@ -31,19 +31,19 @@ public class TrackController {
 	}
 	
 	//all tracks
-	  @GetMapping
+	  @GetMapping("/tracks")
 	public ResponseEntity<List<Track>> getTracks() {
 		List<Track> list=trackRepository.findAll();
 		return ResponseEntity.ok(list);
 		
 	}
-	@GetMapping("/title/{title}")
+	@GetMapping("tracks/title/{title}")
 	public ResponseEntity<List<Track>> getTracksByTitle(@PathVariable String title) {
 		List<Track> t=trackRepository.findByTitle(title);
 		return  ResponseEntity.ok(t);
 		
 	}
-	 @GetMapping("/{id}")
+	 @GetMapping("tracks/{id}")
 	 public ResponseEntity<Object> getTrack(@PathVariable Long id) {
 	        Optional<Track> track = trackRepository.findById(id);
 
